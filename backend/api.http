@@ -1,0 +1,38 @@
+POST http://localhost:9090/register HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "Alex",
+    "password":"Alex",
+    "email": "alex123@gmail.com"
+    
+}
+###
+POST http://localhost:9090/login HTTP/1.1
+Content-Type: application/json
+
+{
+    
+    "password":"Alex",
+    "email": "alex123@gmail.com"
+    
+}
+###
+GET  http://localhost:9090/get_aqi_by_city HTTP/1.1
+Content-Type: application/json
+
+{
+    
+    "city": "mumbai"
+    
+}
+
+###
+GET  http://localhost:9090/dashboard/ai_recommeded_response HTTP/1.1
+Content-Type: application/json
+
+{
+    
+    "city": "delhi"
+    
+}

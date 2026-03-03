@@ -1,0 +1,209 @@
+/* ================= HERO ================= */
+.hero {
+  min-height: 80vh;
+  background: linear-gradient(180deg, #bae6fd, #e0f2fe, #f8fafc);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.heroTitle {
+  font-size: 4.2rem;
+  font-weight: 900;
+  background: linear-gradient(to right, #0284c7, #2563eb, #4f46e5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.heroSubtitle {
+  font-size: 1.8rem;
+  margin-top: 1.2rem;
+  color: #0369a1;
+}
+
+.heroText {
+  max-width: 820px;
+  margin-top: 2rem;
+  font-size: 1.25rem;
+  color: #334155;
+}
+
+/* ================= CALCULATOR ================= */
+.calculatorSection {
+  padding: 2rem;
+  background: linear-gradient(180deg, #f8fafc, #e0f2fe);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sectionTitle {
+  font-size: 2.6rem;
+  font-weight: 800;
+  margin-bottom: 2.5rem;
+}
+
+.calculatorCard {
+  background: #ffffff;
+  padding: 3rem;
+  border-radius: 28px;
+  box-shadow: 0 25px 60px rgba(2,132,199,0.2);
+  max-width: 520px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.cityInput {
+  padding: 1.1rem;
+  border-radius: 14px;
+  border: 2px solid #bae6fd;
+  font-size: 1.1rem;
+}
+
+.primaryBtn {
+  padding: 1.1rem;
+  border-radius: 16px;
+  border: none;
+  background: linear-gradient(to right, #0284c7, #2563eb);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.errorText {
+  color: #dc2626;
+  text-align: center;
+}
+
+/* ================= RESPONSE ================= */
+.responseCard {
+  margin-top: 5rem;
+  max-width: 1000px;
+  width: 100%;
+  padding: 3.6rem;
+  border-radius: 34px;
+
+  /* 🌊 Soft bluish environmental background */
+  background: linear-gradient(
+    180deg,
+    #f0f9ff 0%,
+    #e0f2fe 45%,
+    #dbeafe 100%
+  );
+
+  /* Subtle outline */
+  border: 1px solid rgba(56, 189, 248, 0.35);
+
+  /* Premium soft shadow */
+  box-shadow:
+    0 22px 55px rgba(2, 132, 199, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+
+  animation: slideUp 0.7s ease;
+}
+
+
+.responseTitle {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #0369a1;
+}
+
+.aqiBadge {
+  margin: 1.8rem 0;
+  padding: 0.8rem 2rem;
+  border-radius: 999px;
+  background: linear-gradient(to right, #22c55e, #84cc16);
+  display: inline-block;
+  font-weight: 800;
+}
+
+/* ================= POLLUTANTS ================= */
+.pollutantsGrid {
+  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.8rem;
+}
+
+.pollutantCard {
+  padding: 1.6rem;
+  border-radius: 22px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+}
+
+.pollutantCard h4 {
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.meaning {
+  font-size: 0.9rem;
+  margin: 0.4rem 0;
+  opacity: 0.85;
+}
+
+.value {
+  font-size: 1.4rem;
+  font-weight: 900;
+}
+
+/* COLORS */
+.pm25 { background: #fee2e2; color: #7f1d1d; }
+.pm10 { background: #ffedd5; color: #7c2d12; }
+.no2  { background: #dbeafe; color: #1e3a8a; }
+.so2  { background: #ede9fe; color: #4c1d95; }
+.o3   { background: #dcfce7; color: #14532d; }
+.co   { background: #e5e7eb; color: #111827; }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .pollutantsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .pollutantsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .heroTitle {
+    font-size: 3rem;
+  }
+}
+
+.loadingCard {
+  margin-top: 3rem;
+  padding: 2.2rem;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #f0f9ff, #e0f2fe);
+  box-shadow: 0 20px 45px rgba(14,165,233,0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  animation: fadeInUp 0.4s ease;
+}
+
+.loader {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 4px solid #bae6fd;
+  border-top-color: #2563eb;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+

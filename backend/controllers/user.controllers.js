@@ -39,17 +39,17 @@ export const login = async (req,res) =>{
     try {
         const {email, password} = req.body;
         if(!email || !password) {
-            res.status(500).json({message: "All fields are required"})
+            return res.status(500).json({message: "All fields are required"})
         }
 
         const user = await User.findOne({email});
         if(!user){
-            res.status(404).json({message: "User not found"})
+            return res.status(404).json({message: "User not found"})
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
         if(!isMatch){
-            res.status(400).json({message: "Password is Incorrect or Invalid Credentials"})
+            return res.status(400).json({message: "Password is Incorrect or Invalid Credentials"})
         }
 
         const token = crypto.randomBytes(32).toString("hex");
@@ -57,6 +57,6 @@ export const login = async (req,res) =>{
 
         return res.json({token});
     } catch (error) {
-        res.status(500).json({message: error.message});
+        return res.status(500).json({message: error.message});
     }
 }

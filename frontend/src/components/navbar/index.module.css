@@ -1,0 +1,98 @@
+.container {
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, #197aa4, #49bee6, #42778f);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 5px 25px rgba(0, 174, 255, 0.2);
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Inter', sans-serif;
+}
+
+.rightNav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.rightNav h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    background: linear-gradient(90deg, #00eaff, #0077ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    cursor: pointer;
+    letter-spacing: 2px;
+}
+
+.rightNav h2 {
+    font-size: 18px;
+    font-weight: 500;
+    color: #dceeff;
+    cursor: pointer;
+    position: relative;
+    transition: 0.3s ease;
+}
+
+/* Animated underline */
+.rightNav h2::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background: #00eaff;
+    transition: 0.3s ease;
+}
+
+.rightNav h2:hover::after {
+    width: 100%;
+}
+
+.rightNav h2:hover {
+    color: #00eaff;
+}
+
+.navbarOptionsContainer {
+    display: flex;
+    gap: 1.5rem;
+}
+
+/* Neon Button */
+.buttonLogin {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: linear-gradient(90deg, #00c6ff, #0072ff);
+    color: white;
+    border-radius: 30px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0.6rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 198, 255, 0.5);
+}
+
+.buttonLogin svg {
+    width: 18px;
+    height: 18px;
+    border: 1px solid white;
+    border-radius: 50%;
+    padding: 3px;
+}
+
+.buttonLogin:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(0, 198, 255, 0.9);
+    background: linear-gradient(90deg, #0072ff, #00c6ff);
+}

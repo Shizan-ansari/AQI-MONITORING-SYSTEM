@@ -1,0 +1,63 @@
+.container {
+  min-height: 100vh;
+}
+
+.homeContainer {
+  display: flex;
+  min-height: 100vh;
+}
+
+.homeContainer_leftBar {
+  flex: 0.22;
+  background: linear-gradient(180deg, #e6f7ff, #d0ecff);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; /* Increased gap */
+  padding-top: 2rem;
+  border-right: 1px solid #cce7ff;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.sideBarOptions {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  padding: 0.9rem 1.4rem;
+  width: 85%;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #004b6b;
+  font-weight: 500;
+}
+
+.sideBarOptions svg {
+  width: 22px;
+  height: 22px;
+  stroke-width: 1.8;
+}
+
+.sideBarOptions:hover {
+  background: rgba(0, 174, 255, 0.15);
+  box-shadow: 0 5px 15px rgba(0, 174, 255, 0.2);
+}
+
+.active {
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  color: white;
+  box-shadow: 0 8px 20px rgba(0, 114, 255, 0.4);
+}
+
+.homeContainer_feedContainer {
+  flex: 0.78;
+  overflow-y: auto;
+  
+}
+
+.homeContainer_feedContainer::-webkit-scrollbar {
+  display: none;
+}

@@ -18,12 +18,12 @@ Content-Type: application/json
     
 }
 ###
-GET  http://localhost:9090/get_aqi_by_city HTTP/1.1
+POST  http://localhost:9090/get_aqi_by_city HTTP/1.1
 Content-Type: application/json
 
 {
     
-    "city": "mumbai"
+    "city": "goa"
     
 }
 
@@ -33,6 +33,66 @@ Content-Type: application/json
 
 {
     
-    "city": "delhi"
+    "city": "goa"
     
+}
+###
+GET  http://localhost:9090/get_aqi_history_graph HTTP/1.1
+Content-Type: application/json
+
+{
+    
+    "city": "mumbai"
+    
+}
+
+###
+GET  http://localhost:9090/get_travel_recommendation HTTP/1.1
+Content-Type: application/json
+
+{
+  "destination": "Delhi",
+  "ageGroup": "senior",
+  "healthConditions": ["asthma"],
+  "outdoorExposure": ">3hr",
+  "activityIntensity": "moderate",
+  "airPurifier": false,
+  "maskType": "n95",
+  "aqiAwareness": "medium",
+  "canPostponeTravel": false,
+  "recommendationDetail": "short"
+}
+
+
+### Test Realtime AQI for Map (Delhi)
+GET http://localhost:9090/map?lat=28.6139&lon=77.2090
+Content-Type: application/json
+
+
+### 1️ Get AQI by City (stores in aqi_datas)
+POST http://localhost:9090/get_aqi_by_city
+Content-Type: application/json
+
+{
+  "city": "pune"
+}
+
+### 2️ Save AQI snapshot (manual test)
+POST http://localhost:9090/snapshot
+Content-Type: application/json
+
+{
+  "city": "pune"
+}
+
+### 3️ Get AQI history for graph
+GET http://localhost:9090/get_aqi_history_graph?city=pune
+
+
+### Test AQI Forecast
+POST http://localhost:9090/forecast
+Content-Type: application/json
+
+{
+  "city": "Mumbai"
 }

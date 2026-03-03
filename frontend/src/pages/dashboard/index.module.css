@@ -1,0 +1,177 @@
+.pageWrapper {
+  min-height: 100%;
+  background: linear-gradient(180deg, #f0f9ff, #e0f2fe);
+  padding: 2rem 3rem;
+  font-family: 'Outfit', sans-serif;
+}
+
+/* INTRO */
+.introSection {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 4rem 2rem;
+
+  /* Cool soft blue gradient */
+  background: linear-gradient(135deg, #dbeafe, #e0f2fe, #f0f9ff);
+
+  border-radius: 28px;
+
+  /* Glass effect */
+  backdrop-filter: blur(8px);
+
+  box-shadow: 0 20px 60px rgba(37, 99, 235, 0.12);
+}
+
+/* MAIN HEADING */
+.introSection h1 {
+  font-size: 3.6rem;   /* Increased */
+  font-weight: 900;
+  letter-spacing: -1px;
+
+  background: linear-gradient(to right, #1d4ed8, #4f46e5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  margin-bottom: 1.2rem;
+}
+
+/* DESCRIPTION */
+.introSection p {
+  margin-top: 1rem;
+  font-size: 1.3rem;   /* Increased */
+  line-height: 1.8;
+
+  color: #334155;
+  max-width: 850px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* INPUT CARD */
+.inputCard {
+  display: flex;
+  flex-direction: column;   /* Button goes to next line */
+  align-items: center;
+  gap: 1.4rem;
+  margin-bottom: 3.5rem;
+
+  /* Make card bigger */
+  padding: 2.5rem 3rem;
+  border-radius: 24px;
+
+  background: linear-gradient(145deg, #e0f2fe, #f0f9ff);
+  box-shadow: 0 20px 50px rgba(37, 99, 235, 0.12);
+
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* INPUT FIELD BIGGER */
+.inputCard input {
+  width: 100%;                /* Full width */
+  padding: 1.2rem 1.4rem;      /* Slightly bigger */
+  font-size: 1.1rem;           /* Bigger text */
+  border-radius: 14px;
+  border: 2px solid #93c5fd;
+  outline: none;
+  transition: 0.3s ease;
+}
+
+.inputCard input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+}
+
+/* BUTTON (same size, just moved down) */
+.inputCard button {
+  padding: 1rem 1.6rem; /* SAME SIZE as before */
+  border-radius: 12px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.inputCard button:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+}
+/* OUTPUT */
+.outputWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.outputCard {
+  width: 100%;
+  max-width: 1100px;
+  padding: 3rem;
+  border-radius: 28px;
+  background: linear-gradient(145deg, #e0f2fe, #f8fbff);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.07);
+}
+
+/* CITY */
+.cityName {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.4rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  background: linear-gradient(to right, #2563eb, #4f46e5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* AQI */
+.aqiValue {
+  text-align: center;
+  padding: 0.8rem 1.5rem;
+  border-radius: 999px;
+  color: white;
+  font-weight: bold;
+  margin: 1rem auto 2rem auto;
+  width: fit-content;
+}
+
+/* EXACT 3 PER ROW */
+.pollutantGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.8rem;
+}
+
+.pollutantCard {
+  padding: 1.6rem;
+  border-radius: 20px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.pollutantCard:hover {
+  transform: translateY(-6px);
+}
+
+.pollutantCard strong {
+  font-size: 1.4rem;
+  display: block;
+  margin: 0.4rem 0;
+}
+
+/* RECOMMENDATION */
+.recommendationBox {
+  margin-top: 3rem;
+  padding: 2rem;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+}
+
+.cursor {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0 }
+}

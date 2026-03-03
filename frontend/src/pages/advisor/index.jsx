@@ -64,8 +64,8 @@ export default function TravelAdvisor() {
 
     try {
       const response = await fetch(
-        `http://localhost:9090/get_travel_recommendation?${new URLSearchParams(formData)}`
-      );
+  `${process.env.NEXT_PUBLIC_BACKEND_URL}/get_travel_recommendation?${new URLSearchParams(formData)}`
+);
 
       if (!response.ok) throw new Error("Network error");
 

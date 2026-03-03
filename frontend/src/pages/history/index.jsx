@@ -80,14 +80,14 @@ export default function HistoryComponent() {
 
       if (mode === "daily") {
         const res = await axios.get(
-          `http://localhost:9090/get_aqi_history_graph?city=${city}`
-        );
+  `${process.env.NEXT_PUBLIC_BACKEND_URL}/get_aqi_history_graph?city=${city}`
+);
         if (!res.data.success) return setError(res.data.message);
         setHistory(res.data.data || []);
       } else {
         const res = await axios.get(
-          `http://localhost:9090/get_detailed_history?city=${city}`
-        );
+  `${process.env.NEXT_PUBLIC_BACKEND_URL}/get_detailed_history?city=${city}`
+);
         if (!res.data.success) return setError(res.data.message);
 
         const hourly = res.data.fiveDayHourly || [];

@@ -22,9 +22,9 @@ const start = async () =>{
     const connectDB = await mongoose.connect(MONGO_URL);
 
     console.log("MongoDb Connected")
-
-    app.listen(9090, (req,res) =>{
-        console.log("server is listening on port 9090")
+    const PORT = process.env.PORT || 9090;
+    app.listen(PORT, (req,res) =>{
+        console.log(`server is listening on port ${PORT}`)
     })
 }
 start();

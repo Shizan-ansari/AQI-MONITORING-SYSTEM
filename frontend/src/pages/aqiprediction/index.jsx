@@ -75,10 +75,10 @@ export default function AQIPrediction() {
       setError(null)
       setForecast(null)
 
-      const res = await axios.post(
-        "http://localhost:9090/forecast",
-        { city }
-      )
+     const res = await axios.post(
+  `${process.env.NEXT_PUBLIC_BACKEND_URL}/forecast`,
+  { city }
+);
 
       if (!res.data.success) {
         setError(res.data.message)

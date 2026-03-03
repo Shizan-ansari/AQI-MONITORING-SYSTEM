@@ -167,11 +167,14 @@ useLayoutEffect(() => {
 
     setLoading(true);
 
-    const res = await fetch("http://localhost:9090/clean-route", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ source, destination })
-    });
+    const res = await fetch(
+  `${process.env.NEXT_PUBLIC_BACKEND_URL}/clean-route`,
+  {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ source, destination })
+  }
+);
 
     const json = await res.json();
 

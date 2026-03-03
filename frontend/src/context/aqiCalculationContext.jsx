@@ -9,8 +9,8 @@ const {default: axios, HttpStatusCode} = require("axios");
 export const  AqiManipulationContext = createContext({});
 
 const client = axios.create({
-    baseURL : "http://localhost:9090"
-})
+  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL
+});
 
 export const AqiManipulationProvider = ({children}) =>{
 

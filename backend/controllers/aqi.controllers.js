@@ -9,14 +9,13 @@ export const getAqiByCity = async (req, res) => {
       return res.status(400).json({ message: "City Name is required" });
     }
 
-    // 1️ Fetch & store live AQI
+    
     const AqiData = await getAndStoreAQiDataByCity(city);
 
-    // 2️ Try saving history (NON-BLOCKING)
+  
     saveAQISnapshotByCity(city)
       .catch(err => console.log("History skip:", err.message));
 
-    // 3️ Respond immediately
     return res.status(200).json(AqiData);
 
   } catch (error) {

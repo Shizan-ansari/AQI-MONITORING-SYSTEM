@@ -1,10 +1,25 @@
 import { calculateIndianAQI } from "./indianAqiCalculation.services.js";
 import { getAndStoreAQiDataByCity } from "./aqi.services.js";
-import { callGemini } from "../utils/geminiClient.js";
 import { callGroq } from "../utils/groqClient.js";
 
+  //formating ai response
+
+const cleanAIText = (text) => {
+  if (!text) return "";
+
+  return text
+    .replace(/\*\*/g, "")        
+    .replace(/\*/g, "")          
+    .replace(/undefined/g, "")   
+    .replace(/\r/g, "")
+    .split("\n")
+    .map(line => line.trim())
+    .filter(line => line.length > 0)
+    .join("\n\n");   
+};
+  
 export const generateTravelRecommendation = async (input) => {
-  // Fetch pollutant data (already stored by you)
+  //fetching polutants data
   const pollutants = await getAndStoreAQiDataByCity(input.destination);
 
   if (!pollutants || typeof pollutants !== "object") {
@@ -80,22 +95,32 @@ Activity Intensity: ${input.activityIntensity}
 ${detailInstruction}
 
 Rules:
-- This response will be shown directly in a UI
-- Use clear headings and bullet points
-- Keep tone calm, professional, and reassuring
-- Avoid medical diagnosis
-- Base advice strictly on the provided inputs
+- The response will be displayed directly inside a web UI.
+- Write in clear, readable paragraphs with proper spacing.
+- Start each section with a short heading followed by a colon.
+- Leave one blank line between sections.
+- Do NOT use *, **, -, or markdown formatting.
+- Do NOT use numbered lists like 1,2,3.
+- Avoid repeating numbers or symbols in headings.
+- Each section should contain 2–3 sentences maximum.
+- Use simple and friendly language suitable for travelers.
+- Focus only on the provided inputs (AQI, age group, exposure, etc.).
+- Do NOT include any technical explanations or AI disclaimers.
 `;
 
-//  Gemini FAIL-SAFE (MOST IMPORTANT)
-  let aiAdvice = "AI recommendations are temporarily unavailable.";
+let aiAdvice = "AI recommendations are temporarily unavailable.";
 
-  try {
-    const response = await callGroq(prompt);
-    if (response) aiAdvice = response;
-  } catch (err) {
-    console.warn("⚠️ Gemini failed:", err.message);
+try {
+
+  const response = await callGroq(prompt);
+
+  if (response) {
+    aiAdvice = cleanAIText(response);
   }
+
+} catch (err) {
+  console.warn("⚠️ AI failed:", err.message);
+}
 
   // Final response
   return {

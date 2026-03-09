@@ -5,7 +5,6 @@
   font-family: 'Outfit', sans-serif;
 }
 
-/* INTRO */
 .introSection {
   text-align: center;
   margin-bottom: 3rem;
@@ -22,7 +21,7 @@
   box-shadow: 0 20px 60px rgba(37, 99, 235, 0.12);
 }
 
-/* MAIN HEADING */
+
 .introSection h1 {
   font-size: 3.6rem;   /* Increased */
   font-weight: 900;
@@ -35,10 +34,10 @@
   margin-bottom: 1.2rem;
 }
 
-/* DESCRIPTION */
+
 .introSection p {
   margin-top: 1rem;
-  font-size: 1.3rem;   /* Increased */
+  font-size: 1.3rem;   
   line-height: 1.8;
 
   color: #334155;
@@ -50,12 +49,12 @@
 /* INPUT CARD */
 .inputCard {
   display: flex;
-  flex-direction: column;   /* Button goes to next line */
+  flex-direction: column;   
   align-items: center;
   gap: 1.4rem;
   margin-bottom: 3.5rem;
 
-  /* Make card bigger */
+
   padding: 2.5rem 3rem;
   border-radius: 24px;
 
@@ -67,11 +66,11 @@
   margin-right: auto;
 }
 
-/* INPUT FIELD BIGGER */
+
 .inputCard input {
-  width: 100%;                /* Full width */
-  padding: 1.2rem 1.4rem;      /* Slightly bigger */
-  font-size: 1.1rem;           /* Bigger text */
+  width: 100%;                
+  padding: 1.2rem 1.4rem;     
+  font-size: 1.1rem;          
   border-radius: 14px;
   border: 2px solid #93c5fd;
   outline: none;
@@ -83,9 +82,9 @@
   box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
 }
 
-/* BUTTON (same size, just moved down) */
+
 .inputCard button {
-  padding: 1rem 1.6rem; /* SAME SIZE as before */
+  padding: 1rem 1.6rem; 
   border-radius: 12px;
   border: none;
   background: #2563eb;
@@ -99,7 +98,7 @@
   background: #1d4ed8;
   transform: translateY(-2px);
 }
-/* OUTPUT */
+
 .outputWrapper {
   display: flex;
   justify-content: center;
@@ -114,7 +113,7 @@
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.07);
 }
 
-/* CITY */
+
 .cityName {
   font-family: 'Orbitron', sans-serif;
   font-size: 2.4rem;
@@ -125,7 +124,7 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* AQI */
+
 .aqiValue {
   text-align: center;
   padding: 0.8rem 1.5rem;
@@ -136,7 +135,7 @@
   width: fit-content;
 }
 
-/* EXACT 3 PER ROW */
+
 .pollutantGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -160,7 +159,7 @@
   margin: 0.4rem 0;
 }
 
-/* RECOMMENDATION */
+
 .recommendationBox {
   margin-top: 3rem;
   padding: 2rem;
@@ -174,4 +173,30 @@
 
 @keyframes blink {
   50% { opacity: 0 }
+}
+
+.popupAlert{
+position: fixed;
+top: 25px;
+left: 50%;
+transform: translateX(-50%);
+background: #ef4444;
+color: white;
+padding: 12px 28px;
+border-radius: 10px;
+font-weight: 600;
+z-index: 9999;
+box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown{
+from{
+opacity:0;
+transform: translate(-50%, -20px);
+}
+to{
+opacity:1;
+transform: translate(-50%, 0);
+}
 }

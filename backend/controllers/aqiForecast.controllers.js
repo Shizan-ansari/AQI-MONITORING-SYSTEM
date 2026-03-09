@@ -8,7 +8,7 @@ export const getAqiForecast = async (req, res) => {
 
     
 
-    /* ---------------- INPUT VALIDATION ---------------- */
+    //INPUT VALIDATION
 
     let { city } = req.body;
 
@@ -21,7 +21,7 @@ export const getAqiForecast = async (req, res) => {
 
     city = city.toLowerCase().trim();
 
-    /* Block random characters */
+    //blocking randdom chars
     const cityRegex = /^[a-zA-Z\s]+$/;
     if (!cityRegex.test(city)) {
       return res.status(400).json({
@@ -30,7 +30,7 @@ export const getAqiForecast = async (req, res) => {
       });
     }
 
-    /* ---------------- GEO VALIDATION ---------------- */
+    //geo validation
 
     const geoRes = await axios.get(
       `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${process.env.AQI_MESUREMENT_KEY}`
@@ -45,7 +45,7 @@ export const getAqiForecast = async (req, res) => {
 
     const { lat, lon, name } = geoRes.data[0];
 
-    /* ---------------- FETCH 5 DAY HISTORY ---------------- */
+  //fetching 5 days history
 
     const fiveDaysAgo = Math.floor(Date.now() / 1000) - (5 * 24 * 60 * 60);
     const now = Math.floor(Date.now() / 1000);
@@ -63,7 +63,7 @@ export const getAqiForecast = async (req, res) => {
       });
     }
 
-    /* ---------------- PROCESS DATA ---------------- */
+    //process data
 
     const processedHistory = [];
 
@@ -102,7 +102,7 @@ export const getAqiForecast = async (req, res) => {
       });
     }
 
-    /* ---------------- REPLACE OLD CITY DATA ---------------- */
+    //replace old city
 
     await AQI_FORECAST_MODEL.findOneAndUpdate(
       { city },
@@ -116,7 +116,7 @@ export const getAqiForecast = async (req, res) => {
       { upsert: true, new: true }
     );
 
-    /* ---------------- ML PREDICTION ---------------- */
+    //ml prediction
 
     const aqiArray = processedHistory.map(item => item.aqi);
 
@@ -160,7 +160,7 @@ export const getAqiForecast = async (req, res) => {
 };
 
 
-/* ---------------- CATEGORY ---------------- */
+//category
 
 function getCategory(aqi) {
   if (aqi <= 50) return "Good";
@@ -171,7 +171,7 @@ function getCategory(aqi) {
   return "Severe";
 }
 
-/* ---------------- HEALTH ADVICE ---------------- */
+//health advice
 
 function getHealthAdvice(aqi) {
   if (aqi <= 100)

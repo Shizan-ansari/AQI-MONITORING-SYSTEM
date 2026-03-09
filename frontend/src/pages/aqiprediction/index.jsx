@@ -1,3 +1,5 @@
+"use client";
+
 import DashboardLayout from '@/layouts/dashboardLayout'
 import UserLayout from '@/layouts/userLayout'
 import React, { useState, useLayoutEffect, useRef } from 'react'
@@ -15,9 +17,22 @@ export default function AQIPrediction() {
   const [city, setCity] = useState('')
   const [forecast, setForecast] = useState(null)
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)   // 🔥 NEW ERROR STATE
+  const [error, setError] = useState(null)
 
-  /* HERO ANIMATION */
+  //popup state
+  const [popup, setPopup] = useState("")
+  const [showPopup, setShowPopup] = useState(false)
+
+  const showAlert = (message) => {
+    setPopup(message)
+    setShowPopup(true)
+
+    setTimeout(() => {
+      setShowPopup(false)
+    }, 3000)
+  }
+
+  //hero animation
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -33,7 +48,7 @@ export default function AQIPrediction() {
     return () => ctx.revert()
   }, [])
 
-  /* AQI COLOR */
+  //AQI color
 
   const getAQIColor = (aqi) => {
     if (aqi <= 50) return "#22c55e"
@@ -43,7 +58,7 @@ export default function AQIPrediction() {
     return "#7e22ce"
   }
 
-  /* TYPEWRITER */
+  //typewriter
 
   const typeWriter = (text) => {
     if (!adviceRef.current) return
@@ -62,26 +77,37 @@ export default function AQIPrediction() {
     })
   }
 
-  /* PREDICT FUNCTION WITH ERROR HANDLING */
+  //protect function with the validation
 
   const handlePredict = async () => {
-    if (!city.trim()) {
-      setError("Please enter a city name.")
+
+    const trimmedCity = city.trim()
+
+    if (!trimmedCity) {
+      showAlert("Please enter a city name.")
+      return
+    }
+
+    const cityRegex = /^[A-Za-z\s]+$/
+
+    if (!cityRegex.test(trimmedCity)) {
+      showAlert("City name should contain only letters.")
       return
     }
 
     try {
+
       setLoading(true)
       setError(null)
       setForecast(null)
 
-     const res = await axios.post(
-  `${process.env.NEXT_PUBLIC_BACKEND_URL}/forecast`,
-  { city }
-);
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/forecast`,
+        { city: trimmedCity }
+      )
 
       if (!res.data.success) {
-        setError(res.data.message)
+        showAlert(res.data.message || "City AQI forecast not available.")
         return
       }
 
@@ -92,8 +118,10 @@ export default function AQIPrediction() {
         block: "start"
       })
 
-      // Counter animation
+      //aqi counter
+
       const counter = { val: 0 }
+
       gsap.to(counter, {
         val: res.data.prediction,
         duration: 1.5,
@@ -107,10 +135,21 @@ export default function AQIPrediction() {
       typeWriter(res.data.healthAdvice)
 
     } catch (err) {
-      setError(
-        err.response?.data?.message ||
-        "Something went wrong. Please try again."
-      )
+
+      console.error(err)
+
+      if (err.response?.status === 404) {
+        showAlert("City AQI forecast not found.")
+      }
+
+      else if (err.message === "Network Error") {
+        showAlert("Server unreachable. Check internet connection.")
+      }
+
+      else {
+        showAlert("Something went wrong. Please try again.")
+      }
+
     } finally {
       setLoading(false)
     }
@@ -122,7 +161,14 @@ export default function AQIPrediction() {
 
         <div className={styles.wrapper}>
 
-          {/* HERO */}
+         
+          {showPopup && (
+            <div className={styles.popupAlert}>
+              {popup}
+            </div>
+          )}
+
+       
           <section ref={heroRef} className={styles.hero}>
             <h1 className="heroAnim">AeroVision Forecast Engine</h1>
 
@@ -136,17 +182,16 @@ export default function AQIPrediction() {
             </p>
           </section>
 
-          {/* INPUT + RESULT */}
+         
           <section ref={mainRef} className={styles.inputSection}>
 
-            {/* ERROR UI */}
             {error && (
               <div className={styles.errorBox}>
                 {error}
               </div>
             )}
 
-            {/* RESULT */}
+            
             {forecast && (
               <div
                 className={styles.resultBox}
@@ -182,9 +227,18 @@ export default function AQIPrediction() {
             <div className={styles.inputRow}>
               <input
                 value={city}
-                onChange={(e) => setCity(e.target.value)}
                 placeholder="Type city name..."
+                onChange={(e) => {
+
+                  const value = e.target.value
+
+                  if (/^[A-Za-z\s]*$/.test(value)) {
+                    setCity(value)
+                  }
+
+                }}
               />
+
               <button onClick={handlePredict} disabled={loading}>
                 {loading ? "Predicting..." : "Predict AQI"}
               </button>

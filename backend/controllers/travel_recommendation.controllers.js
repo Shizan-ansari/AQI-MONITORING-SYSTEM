@@ -3,7 +3,7 @@ import { generateTravelRecommendation } from "../services/travel_recommendation.
 
 export const getTravelRecommendation = async (req, res) => {
   try {
-    /*  Normalize & Validate Input */
+    //normalize and validate input
 
     const destinationRaw = req.query.destination;
 
@@ -42,15 +42,11 @@ export const getTravelRecommendation = async (req, res) => {
       recommendationDetail: req.query.recommendationDetail || "standard"
     };
 
-    /* -----------------------------
-       Store user input (optional analytics)
-    ------------------------------ */
+    //store user input
 
     await TRAVEL_RECOMMENDATION_MODEL.create(input);
 
-    /* -----------------------------
-       Generate Recommendation
-    ------------------------------ */
+   //generate recommendation
 
     const result = await generateTravelRecommendation(input);
 

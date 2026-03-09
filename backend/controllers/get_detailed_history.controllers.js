@@ -2,9 +2,7 @@ import axios from "axios";
 import AQI_FORECAST_MODEL from "../models/aqi_historyForecast.models.js";
 import { calculateIndianAQI } from "../services/indianAqiCalculation.services.js";
 
-/* ----------------------------------------
-   GET DETAILED HISTORY (5 days + 24h)
------------------------------------------ */
+//Getting detailed history of 5 days with 24 hours
 export const getDetailedAQIHistory = async (req, res) => {
   try {
     let { city } = req.query;
@@ -26,11 +24,11 @@ export const getDetailedAQIHistory = async (req, res) => {
       });
     }
 
-    /* Check DB first */
+    //checking in the db if exist
     let forecastData = await AQI_FORECAST_MODEL.findOne({ city });
 
     if (!forecastData) {
-      /* Fetch from API if not exist */
+      //fetch aqi from the api
 
       const geoRes = await axios.get(
         `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${process.env.AQI_MESUREMENT_KEY}`

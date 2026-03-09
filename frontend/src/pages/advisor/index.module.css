@@ -241,3 +241,59 @@
     padding: 2rem;
   }
 }
+
+/* MOBILE CHANGE */
+@media (max-width:900px){
+
+.page{
+padding:2rem 1rem;
+}
+
+.formGrid{
+grid-template-columns:1fr;
+padding:2rem 1.5rem;
+}
+
+.inputCard{
+padding:1.5rem;
+}
+
+.responseCard{
+padding:2rem 1.5rem;
+}
+
+.header h1{
+font-size:2.4rem;
+}
+
+.header p{
+font-size:1.05rem;
+}
+
+}
+
+/* responsiveness */
+@media (max-width:480px){
+
+.page{
+padding:1.5rem 0.8rem;
+}
+
+.header h1{
+font-size:2rem;
+}
+
+.header p{
+font-size:0.95rem;
+}
+
+.submitBtn{
+padding:1rem;
+font-size:1rem;
+}
+
+.responseCard p{
+font-size:0.95rem;
+}
+
+}

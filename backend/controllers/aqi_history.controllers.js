@@ -1,7 +1,7 @@
 import { AQI_HISTORY_MODEL } from "../models/aqi_history.models.js";
 import { saveAQISnapshotByCity } from "../services/aqi_history.services.js";
 
-/* 🔹 MANUAL SNAPSHOT (testing only) */
+//manual snapshot for test only
 export const saveAQISnapshotController = async (req, res) => {
   try {
     const { city } = req.body;
@@ -28,7 +28,7 @@ export const saveAQISnapshotController = async (req, res) => {
   }
 };
 
-/* 🔹 GET HISTORY (graph) */
+//getting aqi history
 export const getAQIHistoryByCity = async (req, res) => {
   try {
     const { city } = req.query;

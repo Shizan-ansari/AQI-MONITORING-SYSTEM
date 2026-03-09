@@ -18,7 +18,9 @@ export const callGroq = async (prompt) => {
                 You are a travel health advisory assistant.
                 Give clear, structured, and moderately detailed advice.
                 Explain health risks, precautions, and who should be extra careful.
-                Avoid diagnosis.
+                Avoid diagnosis.Use numbered sections instead of markdown or stars.
+Do not use ** or * symbols.
+Separate paragraphs clearly.
                 `
           },
           {
@@ -27,7 +29,7 @@ export const callGroq = async (prompt) => {
           }
         ],
         temperature: 0.4,
-        max_tokens: 280
+        max_tokens: 700
       },
       {
         headers: {

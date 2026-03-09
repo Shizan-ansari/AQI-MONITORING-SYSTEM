@@ -1,4 +1,4 @@
-/* ================= HERO ================= */
+/*HERO*/
 .hero {
   min-height: 80vh;
   background: linear-gradient(180deg, #bae6fd, #e0f2fe, #f8fafc);
@@ -31,7 +31,7 @@
   color: #334155;
 }
 
-/* ================= CALCULATOR ================= */
+/*  CALCULATOR */
 .calculatorSection {
   padding: 2rem;
   background: linear-gradient(180deg, #f8fafc, #e0f2fe);
@@ -81,7 +81,7 @@
   text-align: center;
 }
 
-/* ================= RESPONSE ================= */
+/*  RESPONSE  */
 .responseCard {
   margin-top: 5rem;
   max-width: 1000px;
@@ -89,7 +89,7 @@
   padding: 3.6rem;
   border-radius: 34px;
 
-  /* 🌊 Soft bluish environmental background */
+  
   background: linear-gradient(
     180deg,
     #f0f9ff 0%,
@@ -97,10 +97,9 @@
     #dbeafe 100%
   );
 
-  /* Subtle outline */
+ 
   border: 1px solid rgba(56, 189, 248, 0.35);
 
-  /* Premium soft shadow */
   box-shadow:
     0 22px 55px rgba(2, 132, 199, 0.18),
     inset 0 1px 0 rgba(255, 255, 255, 0.65);
@@ -124,7 +123,7 @@
   font-weight: 800;
 }
 
-/* ================= POLLUTANTS ================= */
+
 .pollutantsGrid {
   margin-top: 3rem;
   display: grid;
@@ -207,3 +206,137 @@
   }
 }
 
+.popupError{
+position: fixed;
+top: 20px;
+left: 50%;
+transform: translateX(-50%);
+background-color: #ef4444;
+color: white;
+padding: 12px 25px;
+border-radius: 10px;
+font-weight: 600;
+z-index: 9999;
+box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+animation: popupFade 0.3s ease;
+}
+
+@keyframes popupFade{
+from{
+opacity:0;
+transform:translate(-50%, -15px);
+}
+to{
+opacity:1;
+transform:translate(-50%,0);
+}
+}
+
+/* MOBILE CHANGE */
+@media (max-width: 768px){
+
+.hero{
+padding:3rem 1.5rem;
+min-height:70vh;
+}
+
+.heroTitle{
+font-size:3rem;
+}
+
+.heroSubtitle{
+font-size:1.3rem;
+}
+
+.heroText{
+font-size:1rem;
+max-width:95%;
+}
+
+.sectionTitle{
+font-size:2rem;
+text-align:center;
+}
+
+.calculatorCard{
+padding:2rem;
+border-radius:20px;
+}
+
+.cityInput{
+font-size:1rem;
+padding:0.9rem;
+}
+
+.primaryBtn{
+font-size:1rem;
+padding:0.9rem;
+}
+
+.responseCard{
+padding:2rem;
+margin-top:3rem;
+}
+
+.responseTitle{
+font-size:1.6rem;
+text-align:center;
+}
+
+.aqiBadge{
+font-size:0.9rem;
+padding:0.6rem 1.2rem;
+}
+
+.pollutantsGrid{
+grid-template-columns:repeat(2,1fr);
+gap:1rem;
+}
+
+.pollutantCard{
+padding:1.2rem;
+}
+
+.value{
+font-size:1.2rem;
+}
+
+}
+
+
+/* MOBILE CHANGE */
+@media (max-width:480px){
+
+.heroTitle{
+font-size:2.4rem;
+}
+
+.heroSubtitle{
+font-size:1.1rem;
+}
+
+.heroText{
+font-size:0.95rem;
+}
+
+.calculatorSection{
+padding:1.5rem 1rem;
+}
+
+.calculatorCard{
+padding:1.5rem;
+}
+
+.pollutantsGrid{
+grid-template-columns:1fr;
+}
+
+.responseCard{
+padding:1.6rem;
+}
+
+.sectionTitle{
+font-size:1.7rem;
+}
+
+}

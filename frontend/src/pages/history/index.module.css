@@ -108,3 +108,83 @@
 }
 
 
+.popupAlert{
+position: fixed;
+top: 30px;
+left: 50%;
+transform: translateX(-50%);
+background: #ef4444;
+color: white;
+padding: 12px 26px;
+border-radius: 10px;
+font-weight: 600;
+box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+z-index: 9999;
+animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown{
+from{
+opacity:0;
+transform: translate(-50%, -20px);
+}
+to{
+opacity:1;
+transform: translate(-50%,0);
+}
+}
+/* MOBILE CHANGE */
+@media (max-width:900px){
+
+.page{
+padding:20px;
+}
+
+.topBar{
+flex-direction:column;
+align-items:flex-start;
+gap:10px;
+}
+
+.title{
+font-size:20px;
+}
+
+.searchBar{
+flex-direction:column;
+}
+
+.cityInput{
+width:100%;
+}
+
+.searchBtn{
+width:100%;
+}
+
+.largeCard{
+height:320px;
+padding:16px;
+}
+
+}
+
+/* MOBILE CHANGE */
+@media (max-width:500px){
+
+.largeCard{
+height:280px;
+}
+
+.switchContainer{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+}
+
+.switchContainer button{
+font-size:13px;
+padding:6px 10px;
+}
+
+}

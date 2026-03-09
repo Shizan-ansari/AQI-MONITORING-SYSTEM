@@ -9,7 +9,17 @@ export default function DashboardLayout({ children }) {
   const router = useRouter();
   const pathname = usePathname();
   const sidebarRef = useRef(null);
+  
+  //Route protection
+  useEffect(() => {
+    const token = localStorage.getItem("token");
 
+    if (!token) {
+      router.push("/login");
+    }
+  }, []);
+
+  //GSAP Animation
   useEffect(() => {
     if (!sidebarRef.current) return;
 
@@ -44,6 +54,18 @@ export default function DashboardLayout({ children }) {
 
   const isActive = (path) => pathname === path;
 
+  //SAFE NAVIGATION FUNCTION
+  const secureNavigation = (path) => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      router.push("/login");
+      return;
+    }
+
+    router.push(path);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.homeContainer}>
@@ -52,7 +74,7 @@ export default function DashboardLayout({ children }) {
             label="Dashboard"
             path="/dashboard"
             icon={dashboardIcon}
-            router={router}
+            navigate={secureNavigation}
             active={isActive("/dashboard")}
             onHover={handleHover}
             onLeave={handleLeave}
@@ -62,7 +84,7 @@ export default function DashboardLayout({ children }) {
             label="Maps"
             path="/maps"
             icon={mapIcon}
-            router={router}
+            navigate={secureNavigation}
             active={isActive("/maps")}
             onHover={handleHover}
             onLeave={handleLeave}
@@ -72,7 +94,7 @@ export default function DashboardLayout({ children }) {
             label="Travel Advisor"
             path="/advisor"
             icon={heartIcon}
-            router={router}
+            navigate={secureNavigation}
             active={isActive("/advisor")}
             onHover={handleHover}
             onLeave={handleLeave}
@@ -82,7 +104,7 @@ export default function DashboardLayout({ children }) {
             label="AeroPredict"
             path="/aqiprediction"
             icon={predictionIcon}
-            router={router}
+            navigate={secureNavigation}
             active={isActive("/aqiprediction")}
             onHover={handleHover}
             onLeave={handleLeave}
@@ -92,7 +114,7 @@ export default function DashboardLayout({ children }) {
             label="History"
             path="/history"
             icon={chartIcon}
-            router={router}
+            navigate={secureNavigation}
             active={isActive("/history")}
             onHover={handleHover}
             onLeave={handleLeave}
@@ -107,10 +129,10 @@ export default function DashboardLayout({ children }) {
   );
 }
 
-function SidebarItem({ label, path, icon, router, active, onHover, onLeave }) {
+function SidebarItem({ label, path, icon, navigate, active, onHover, onLeave }) {
   return (
     <div
-      onClick={() => router.push(path)}
+      onClick={() => navigate(path)}
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
       className={`${styles.sideBarOptions} ${active ? styles.active : ""}`}
@@ -120,6 +142,8 @@ function SidebarItem({ label, path, icon, router, active, onHover, onLeave }) {
     </div>
   );
 }
+
+/* Icons */
 
 const dashboardIcon = (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">

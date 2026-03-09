@@ -96,3 +96,71 @@
     box-shadow: 0 0 20px rgba(0, 198, 255, 0.9);
     background: linear-gradient(90deg, #0072ff, #00c6ff);
 }
+
+
+/* MOBILE CHANGE */
+@media (max-width: 768px){
+
+.container{
+padding:0.8rem 1.2rem;
+}
+
+.navbar{
+flex-direction:row;
+align-items:center;
+}
+
+.rightNav{
+gap:1.2rem;
+}
+
+.rightNav h1{
+font-size:22px;
+letter-spacing:1px;
+}
+
+.rightNav h2{
+font-size:15px;
+}
+
+.navbarOptionsContainer{
+gap:1rem;
+}
+
+.buttonLogin{
+font-size:14px;
+padding:0.5rem 1.2rem;
+}
+
+}
+
+
+/* MOBILE CHANGE */
+@media (max-width: 480px){
+
+.container{
+padding:0.6rem 1rem;
+}
+
+.navbar{
+flex-direction:row;
+}
+
+.rightNav{
+gap:0.8rem;
+}
+
+.rightNav h1{
+font-size:20px;
+}
+
+.rightNav h2{
+font-size:14px;
+}
+
+.buttonLogin{
+font-size:13px;
+padding:0.45rem 1rem;
+}
+
+}

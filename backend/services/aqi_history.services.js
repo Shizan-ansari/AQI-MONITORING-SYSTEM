@@ -1,26 +1,24 @@
 import { AQI_MODEL } from "../models/aqi.models.js";
 import { AQI_HISTORY_MODEL } from "../models/aqi_history.models.js";
 
-/*
-   Save DAILY AQI snapshot for a city
- */
+//save daily aqi snapshot for city
 export const saveAQISnapshotByCity = async (city) => {
   if (!city) throw new Error("City is required");
 
   const normalizeCity = city.toLowerCase().trim();
 
-  /*  Get latest AQI from aqi_datas */
+  //get latest aqi 
   const latestAQI = await AQI_MODEL.findOne({ city: normalizeCity });
 
   if (!latestAQI) {
     throw new Error("NO_AQI_DATA_FOUND");
   }
 
-  /* Normalize date to start of day (00:00) */
+  //normalize day start of the day 00.00
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  /* Insert snapshot (DB prevents duplicates) */
+  //db prevents duplicate if same name data exist of city
   try {
     await AQI_HISTORY_MODEL.create({
       city: normalizeCity,
@@ -36,7 +34,7 @@ export const saveAQISnapshotByCity = async (city) => {
     throw err;
   }
 
-  /* 4️⃣ Keep ONLY last 7 days */
+  //keep only last 7 days data
   const records = await AQI_HISTORY_MODEL.find({ city: normalizeCity })
     .sort({ date: -1 });
 

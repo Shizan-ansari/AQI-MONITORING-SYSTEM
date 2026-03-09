@@ -42,27 +42,13 @@ Content-Type: application/json
 
 {
     
-    "city": "mumbai"
+    "city": "Mumbai"
     
 }
 
 ###
-GET  http://localhost:9090/get_travel_recommendation HTTP/1.1
+GET http://localhost:9090/get_travel_recommendation?destination=Mumbai&ageGroup=senior&outdoorExposure=%3E3hr&activityIntensity=moderate&maskType=n95&aqiAwareness=medium&airPurifier=false&canPostponeTravel=false&recommendationDetail=short&healthConditions=asthma
 Content-Type: application/json
-
-{
-  "destination": "Delhi",
-  "ageGroup": "senior",
-  "healthConditions": ["asthma"],
-  "outdoorExposure": ">3hr",
-  "activityIntensity": "moderate",
-  "airPurifier": false,
-  "maskType": "n95",
-  "aqiAwareness": "medium",
-  "canPostponeTravel": false,
-  "recommendationDetail": "short"
-}
-
 
 ### Test Realtime AQI for Map (Delhi)
 GET http://localhost:9090/map?lat=28.6139&lon=77.2090

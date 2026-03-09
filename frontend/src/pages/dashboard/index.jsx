@@ -15,6 +15,7 @@ const pollutantInfo = {
 }
 
 export default function Dashboard() {
+
   const { city, setCity, calculateAndGiveAIResponse } =
     useContext(AqiManipulationContext)
 
@@ -22,19 +23,77 @@ export default function Dashboard() {
   const [typedText, setTypedText] = useState("")
   const [loading, setLoading] = useState(false)
 
+ //popup state
+  const [popup, setPopup] = useState("")
+  const [showPopup, setShowPopup] = useState(false)
+
   const introRef = useRef(null)
   const outputRef = useRef(null)
   const pollutantRefs = useRef([])
 
-  const handleClick = async () => {
-    setLoading(true)
-    const data = await calculateAndGiveAIResponse(city.trim())
-    setAqiData(data)
-    setCity("")
-    setLoading(false)
+  //popup function
+  const showAlert = (message) => {
+    setPopup(message)
+    setShowPopup(true)
+
+    setTimeout(() => {
+      setShowPopup(false)
+    }, 3000)
   }
 
-  /* Intro animation */
+  const handleClick = async () => {
+
+    const trimmedCity = city.trim()
+
+    //validation
+    if (!trimmedCity) {
+      showAlert("Please enter a city name")
+      return
+    }
+
+    const cityRegex = /^[A-Za-z\s]+$/
+
+    if (!cityRegex.test(trimmedCity)) {
+      showAlert("City name should contain only letters")
+      return
+    }
+
+    try {
+
+      setLoading(true)
+
+      const data = await calculateAndGiveAIResponse(trimmedCity)
+
+      if (!data?.data) {
+        showAlert("Invalid city or no AQI data available")
+        return
+      }
+
+      setAqiData(data)
+      setCity("")
+
+    } catch (err) {
+
+      console.error(err)
+
+      if (err.response?.status === 500) {
+        showAlert("Invalid city name. Please try a real city.")
+      }
+
+      else if (err.message === "Network Error") {
+        showAlert("Server unreachable. Check internet connection.")
+      }
+
+      else {
+        showAlert("Something went wrong. Try again later.")
+      }
+
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  //Intro animation
   useEffect(() => {
     gsap.fromTo(
       introRef.current,
@@ -43,7 +102,7 @@ export default function Dashboard() {
     )
   }, [])
 
-  /* Output animation */
+  //output animation
   useEffect(() => {
     if (aqiData?.data) {
       gsap.fromTo(
@@ -60,17 +119,20 @@ export default function Dashboard() {
     }
   }, [aqiData])
 
-  /* Typing */
+  //typing animation
   useEffect(() => {
     if (aqiData?.data?.recommendation) {
+
       let text = aqiData.data.recommendation
       let i = 0
       setTypedText("")
+
       const interval = setInterval(() => {
         setTypedText(text.slice(0, i))
         i++
         if (i > text.length) clearInterval(interval)
       }, 18)
+
       return () => clearInterval(interval)
     }
   }, [aqiData])
@@ -86,9 +148,16 @@ export default function Dashboard() {
   return (
     <UserLayout>
       <DashboardLayout>
+
         <div className={styles.pageWrapper}>
 
-          {/* PROFESSIONAL INTRO */}
+          {/* POPUP */}
+          {showPopup && (
+            <div className={styles.popupAlert}>
+              {popup}
+            </div>
+          )}
+
           <div ref={introRef} className={styles.introSection}>
             <h1>Welcome to Your <br/>AQI Intelligence Dashboard</h1>
             <p>
@@ -97,20 +166,28 @@ export default function Dashboard() {
             </p>
           </div>
 
-          {/* INPUT */}
           <div className={styles.inputCard}>
             <input
               value={city}
-              onChange={(e) => setCity(e.target.value)}
               placeholder="Enter city name"
+
+              /* INPUT FILTER */
+              onChange={(e) => {
+                const value = e.target.value
+
+                if (/^[A-Za-z\s]*$/.test(value)) {
+                  setCity(value)
+                }
+              }}
             />
+
             <br/>
+
             <button onClick={handleClick}>
               {loading ? "Analyzing..." : "Analyze AQI"}
             </button>
           </div>
 
-          {/* OUTPUT */}
           {aqiData?.data && (
             <div className={styles.outputWrapper}>
               <div ref={outputRef} className={styles.outputCard}>
@@ -126,7 +203,6 @@ export default function Dashboard() {
                   AQI {aqiData.data.aqi.value}
                 </div>
 
-                {/* EXACT 3 PER ROW */}
                 <div className={styles.pollutantGrid}>
                   {Object.entries(aqiData.data.pollutants).map(
                     ([key, value], index) => {
@@ -157,6 +233,7 @@ export default function Dashboard() {
           )}
 
         </div>
+
       </DashboardLayout>
     </UserLayout>
   )

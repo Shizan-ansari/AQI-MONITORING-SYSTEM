@@ -15,7 +15,7 @@ export const getCleanRoute = async (req, res) => {
       });
     }
 
-    /* ---------------- 1️⃣ GEOCODE ---------------- */
+    //geocode
 
     const geoSource = await axios.get(
       `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(source)}.json`,
@@ -40,7 +40,7 @@ export const getCleanRoute = async (req, res) => {
     const sourceCoords = geoSource.data.features[0].center;
     const destCoords = geoDest.data.features[0].center;
 
-    /* ---------------- 2️⃣ GET ROUTES ---------------- */
+    //get routes 
 
     const routeRes = await axios.get(
       `https://api.mapbox.com/directions/v5/mapbox/driving/${sourceCoords[0]},${sourceCoords[1]};${destCoords[0]},${destCoords[1]}`,
@@ -65,7 +65,7 @@ export const getCleanRoute = async (req, res) => {
     let bestRoute = null;
     let lowestExposure = Infinity;
 
-    /* ---------------- 3️⃣ ANALYZE EACH ROUTE ---------------- */
+    //analyze each routes
 
     for (let route of routes) {
       const decoded = polyline.decode(route.geometry);
@@ -109,7 +109,7 @@ export const getCleanRoute = async (req, res) => {
       });
     }
 
-    /* ---------------- 4️⃣ RETURN RESULT ---------------- */
+    //returning result
 
     return res.status(200).json({
       success: true,

@@ -36,7 +36,7 @@ const aqiForecastSchema = new mongoose.Schema(
       required: true,
       trim: true,
       lowercase: true,
-      unique: true,   // 🔥 ONLY ONE DOCUMENT PER CITY
+      unique: true,   //ONLY ONE DOCUMENT PER CITY
       index: true
     },
 
@@ -50,7 +50,7 @@ const aqiForecastSchema = new mongoose.Schema(
       required: true
     },
 
-    // 🔥 Entire 5-day hourly history stored here
+    // Entire 5-day hourly history stored here
     history: {
       type: [hourlyHistorySchema],
       required: true
@@ -66,7 +66,7 @@ const aqiForecastSchema = new mongoose.Schema(
   }
 );
 
-/* 🔥 Ensure unique city constraint */
+/* Ensure unique city constraint */
 aqiForecastSchema.index({ city: 1 }, { unique: true });
 
 export default mongoose.models.AqiHistoryForecast ||

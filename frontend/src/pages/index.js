@@ -11,28 +11,66 @@ export default function Home() {
 
   const [aqiData, setAqiData] = useState(null);
   const [error, setError] = useState("");
+  const [showPopup, setShowPopup] = useState(false);   
   const calculatorRef = useRef(null);
 
-  const handleClick = async () => {
-    if (!city || city.trim() === "") {
-      setError("Please enter a city name");
-      return;
-    }
+const handleClick = async () => {
+  const trimmedCity = city.trim();
 
-    try {
+  if (!trimmedCity) {
+    setError("Please enter a city name");
+    setShowPopup(true);
+
+    setTimeout(() => {
+      setShowPopup(false);
       setError("");
-      const data = await calculateAqiAndGiveResponse(city.trim());
-      setAqiData(data);
-      calculatorRef.current?.scrollIntoView({ behavior: "smooth" });
-    } catch {
-      setError("Unable to fetch AQI right now.");
-    }
-  };
+    }, 3000);
+
+    return;
+  }
+
+  const cityRegex = /^[A-Za-z\s]+$/;
+
+  if (!cityRegex.test(trimmedCity)) {
+    setError("City name should contain only letters");
+    setShowPopup(true);
+
+    setTimeout(() => {
+      setShowPopup(false);
+      setError("");
+    }, 3000);
+
+    return;
+  }
+
+  try {
+    setError("");
+    const data = await calculateAqiAndGiveResponse(trimmedCity);
+    setAqiData(data);
+    calculatorRef.current?.scrollIntoView({ behavior: "smooth" });
+  } catch {
+    setError("Unable to fetch AQI right now.");
+    setShowPopup(true);
+
+    setTimeout(() => {
+      setShowPopup(false);
+      setError("");
+    }, 3000);
+  }
+};
 
   const pollutants = aqiData?.latestAQI?.pollutants;
 
   return (
     <UserLayout>
+
+      {/* POPUP ERROR */}
+      {showPopup && (
+        <div className={styles.popupError}>
+          {error}
+        </div>
+      )}
+
       {/* HERO SECTION */}
       <section className={styles.hero}>
         <h1 className={styles.heroTitle}>AeroVision</h1>
@@ -46,7 +84,7 @@ export default function Home() {
 
       {/* CALCULATOR SECTION */}
       <section ref={calculatorRef} className={styles.calculatorSection}>
-        {/* RESPONSE */}
+
         {aqiData?.latestAQI && (
           <div className={styles.responseCard}>
             <h3 className={styles.responseTitle}>
@@ -58,7 +96,6 @@ export default function Home() {
               {aqiData.latestAQI.aqi.category}
             </div>
 
-            {/* POLLUTANTS */}
             <div className={styles.pollutantsGrid}>
               <div className={`${styles.pollutantCard} ${styles.pm25}`}>
                 <h4>PM2.5</h4>
@@ -117,16 +154,26 @@ export default function Home() {
           <input
             className={styles.cityInput}
             value={city}
-            onChange={(e) => setCity(e.target.value)}
+            onChange={(e) => {
+              const value = e.target.value;
+
+              if (/^[A-Za-z\s]*$/.test(value)) {
+                setCity(value);
+                setError("");
+              }
+            }}
             placeholder="Enter city name"
           />
+
           <button className={styles.primaryBtn} onClick={handleClick}>
             Get AQI
           </button>
-          {error && <p className={styles.errorText}>{error}</p>}
+
+          {error && !showPopup && (
+            <p className={styles.errorText}>{error}</p>
+          )}
         </div>
 
-        
       </section>
     </UserLayout>
   );

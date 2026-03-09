@@ -3,7 +3,12 @@
     justify-content: center;
     align-items: center;
     height: 90svh;
-    background: snow;
+    background: linear-gradient(
+        135deg,
+        #e0f2fe,
+        #bae6fd,
+        #dbeafe
+    );
 }
 
 .cardContainer{
@@ -72,4 +77,145 @@
     flex-direction: column;
     gap: 1.2rem;
     padding-inline: 1.5rem;
+}
+.popupError{
+position: fixed;
+top: 20px;
+left: 50%;
+transform: translateX(-50%);
+background-color: #ef4444;
+color: white;
+padding: 12px 25px;
+border-radius: 10px;
+font-weight: 600;
+z-index: 9999;
+box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+animation: popupFade 0.3s ease;
+}
+
+@keyframes popupFade{
+from{
+opacity:0;
+transform:translate(-50%, -15px);
+}
+to{
+opacity:1;
+transform:translate(-50%,0);
+}
+}
+.popup{
+position: fixed;
+top: 25px;
+left: 50%;
+transform: translateX(-50%);
+padding: 12px 28px;
+border-radius: 10px;
+font-weight: 600;
+color: white;
+z-index: 9999;
+box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+animation: slideDown 0.3s ease;
+}
+
+.success{
+background: #22c55e;
+}
+
+.error{
+background: #ef4444;
+}
+
+@keyframes slideDown{
+from{
+opacity:0;
+transform: translate(-50%,-20px);
+}
+to{
+opacity:1;
+transform: translate(-50%,0);
+}
+}
+
+/*Responsiveness */
+@media (max-width: 900px){
+
+.container{
+height:auto;
+padding:2rem 1rem;
+align-items:flex-start;
+}
+
+.cardContainer{
+width:95vw;
+height:auto;
+flex-direction:column;
+}
+
+.cardContainer_left{
+margin-top:2rem;
+padding:1rem;
+}
+
+.cardContainer_right{
+padding:2rem 1.2rem;
+text-align:center;
+}
+
+.inputContainer{
+max-width:100%;
+}
+
+.inputField{
+padding-inline:1rem;
+padding-block:0.9rem;
+}
+
+.buttonWithOutline{
+padding-block:0.9rem;
+}
+
+}
+
+
+/* Responsiveness */
+@media (max-width: 480px){
+
+.container{
+padding:1.5rem 0.8rem;
+}
+
+.cardContainer{
+width:100%;
+border-radius:10px;
+}
+
+.cardLeftHeading{
+font-size:1.4rem;
+}
+
+.inputContainer{
+gap:1rem;
+}
+
+.inputField{
+font-size:0.95rem;
+padding-block:0.8rem;
+}
+
+.buttonWithOutline{
+font-size:0.95rem;
+padding-block:0.8rem;
+}
+
+.cardContainer_right{
+gap:0.8rem;
+padding:1.5rem 1rem;
+}
+
+.popup{
+top:15px;
+padding:10px 20px;
+font-size:0.9rem;
+}
+
 }

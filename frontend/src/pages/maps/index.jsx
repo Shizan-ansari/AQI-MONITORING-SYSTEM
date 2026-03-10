@@ -104,7 +104,9 @@ export default function Index() {
   };
 
   const fetchAQIData = async (lat, lon) => {
-    const res = await fetch(`http://localhost:9090/map?lat=${lat}&lon=${lon}`);
+    const res = await fetch(
+  `${process.env.NEXT_PUBLIC_BACKEND_URL}/map?lat=${lat}&lon=${lon}`
+);
     const json = await res.json();
     return json.data;
   };

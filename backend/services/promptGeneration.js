@@ -1,4 +1,4 @@
-import { callGemini } from "../utils/geminiClient.js";
+import { callGroq } from "../utils/groqClient.js";
 
 
 export const generateAQIRecommendation = async (aqiData) =>{
@@ -28,5 +28,5 @@ export const generateAQIRecommendation = async (aqiData) =>{
 
     `;
 
-    return await callGemini(prompt);
+    return await callGroq(prompt);
 }
